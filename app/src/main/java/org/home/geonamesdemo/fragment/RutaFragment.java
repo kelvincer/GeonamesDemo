@@ -2,7 +2,6 @@ package org.home.geonamesdemo.fragment;
 
 import android.graphics.Color;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,24 +20,26 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.home.geonamesdemo.R;
+import org.home.geonamesdemo.api.DirectionsService;
+import org.home.geonamesdemo.api.RetrofitDirectionsClient;
+import org.home.geonamesdemo.direction_model.DirectionsServiceResponse;
+import org.home.geonamesdemo.direction_model.GeoLatLng;
+import org.home.geonamesdemo.direction_model.Leg;
+import org.home.geonamesdemo.direction_model.Step;
 import org.home.geonamesdemo.listener.UpdateableFragment;
 import org.home.geonamesdemo.model.Geoname;
 import org.home.geonamesdemo.util.Constants;
-import org.home.geonamesdemo.util.DirectionsJSONParser;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
- * Created by Kelvin on 5/12/2017.
+ * Created by Kelvin on 11/12/2017.
  */
 
 public class RutaFragment extends Fragment implements OnMapReadyCallback, UpdateableFragment {
@@ -82,6 +83,22 @@ public class RutaFragment extends Fragment implements OnMapReadyCallback, Update
         }
     }
 
+    @Override
+    public void update(Location location) {
+        Log.d(TAG, "updating ruta fragment");
+        myPosition = new LatLng(location.getLatitude(), location.getLongitude());
+        if (mMap != null) {
+            establecerRutaYPosicion();
+            loadRoute = true;
+        }
+    }
+
+    private void establecerRutaYPosicion() {
+        mMap.clear();
+        establecerMiPosicion();
+        trazarRuta();
+    }
+
     private void establecerMiPosicion() {
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -99,165 +116,147 @@ public class RutaFragment extends Fragment implements OnMapReadyCallback, Update
         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mMap.addMarker(options.position(destino).title(geoname.getName()));
 
-        String url = getDirectionsUrl(myPosition, destino);
-        DownloadTask downloadTask = new DownloadTask();
-        downloadTask.execute(url);
-    }
+        RetrofitDirectionsClient retrofitDirectionsClient = new RetrofitDirectionsClient();
+        DirectionsService service = retrofitDirectionsClient.getDirectionsService();
 
-    @Override
-    public void update(Location location) {
-        Log.d(TAG, "updating ruta fragment");
-        myPosition = new LatLng(location.getLatitude(), location.getLongitude());
-        if (mMap != null) {
-            establecerRutaYPosicion();
-            loadRoute = true;
-        }
-    }
+        GeoLatLng origen = new GeoLatLng();
+        origen.setLat(myPosition.latitude);
+        origen.setLng(myPosition.longitude);
 
-    private void establecerRutaYPosicion() {
-        mMap.clear();
-        establecerMiPosicion();
-        trazarRuta();
-    }
+        GeoLatLng destino = new GeoLatLng();
+        destino.setLat(this.destino.latitude);
+        destino.setLng(this.destino.longitude);
 
-    private class DownloadTask extends AsyncTask<String, Void, String> {
+        Call<DirectionsServiceResponse> call = service.buscarRuta(origen, destino, "driving", Constants.DIRECTIONS_KEY);
 
-        @Override
-        protected String doInBackground(String... url) {
+        call.enqueue(new Callback<DirectionsServiceResponse>() {
+            @Override
+            public void onResponse(Call<DirectionsServiceResponse> call, Response<DirectionsServiceResponse> response) {
 
-            String data = "";
+                Log.d(TAG, response.raw().toString());
 
-            try {
-                data = downloadUrl(url[0]);
-            } catch (Exception e) {
-                Log.d("Background Task", e.toString());
+                if (response.isSuccessful()) {
+
+                    DirectionsServiceResponse directionsServiceResponse = response.body();
+
+                    Log.d(TAG, directionsServiceResponse.getStatus());
+
+                    List<List<HashMap<String, String>>> routes = getRoutes(directionsServiceResponse);
+
+                    drawRoute(routes);
+                }
             }
-            return data;
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
+            @Override
+            public void onFailure(Call<DirectionsServiceResponse> call, Throwable t) {
 
-            ParserTask parserTask = new ParserTask();
-            parserTask.execute(result);
-        }
+                t.printStackTrace();
+            }
+        });
     }
 
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+    public List<List<HashMap<String, String>>> getRoutes(DirectionsServiceResponse jObject) {
 
-        // Parsing the data in non-ui thread
-        @Override
-        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+        List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String, String>>>();
+        List<Leg> legs;
+        List<Step> steps;
 
-            JSONObject jObject;
-            List<List<HashMap<String, String>>> routes = null;
+        for (int i = 0; i < jObject.getRoutes().size(); i++) {
 
-            try {
-                jObject = new JSONObject(jsonData[0]);
-                DirectionsJSONParser parser = new DirectionsJSONParser();
+            legs = jObject.getRoutes().get(i).getLegs();
+            List path = new ArrayList<HashMap<String, String>>();
 
-                routes = parser.parse(jObject);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return routes;
-        }
+            for (int j = 0; j < legs.size(); j++) {
 
-        @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-            ArrayList points = null;
-            PolylineOptions lineOptions = null;
-            MarkerOptions markerOptions = new MarkerOptions();
+                steps = legs.get(j).getSteps();
 
-            for (int i = 0; i < result.size(); i++) {
-                points = new ArrayList();
-                lineOptions = new PolylineOptions();
+                for (int k = 0; k < steps.size(); k++) {
 
-                List<HashMap<String, String>> path = result.get(i);
 
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
+                    String polyline = steps.get(k).getPolyline().getPoints();
+                    List list = decodePoly(polyline);
 
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
-
-                    points.add(position);
+                    for (int l = 0; l < list.size(); l++) {
+                        HashMap<String, String> hm = new HashMap<String, String>();
+                        hm.put("lat", Double.toString(((LatLng) list.get(l)).latitude));
+                        hm.put("lng", Double.toString(((LatLng) list.get(l)).longitude));
+                        path.add(hm);
+                    }
                 }
 
-                lineOptions.addAll(points);
-                lineOptions.width(12);
-                lineOptions.color(Color.RED);
-                lineOptions.geodesic(true);
+                routes.add(path);
+            }
+        }
 
+        return routes;
+    }
+
+
+    private List decodePoly(String encoded) {
+
+        List poly = new ArrayList();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
+    }
+
+    protected void drawRoute(List<List<HashMap<String, String>>> result) {
+
+        ArrayList points = null;
+        PolylineOptions lineOptions = null;
+
+        for (int i = 0; i < result.size(); i++) {
+            points = new ArrayList();
+            lineOptions = new PolylineOptions();
+
+            List<HashMap<String, String>> path = result.get(i);
+
+            for (int j = 0; j < path.size(); j++) {
+                HashMap<String, String> point = path.get(j);
+
+                double lat = Double.parseDouble(point.get("lat"));
+                double lng = Double.parseDouble(point.get("lng"));
+                LatLng position = new LatLng(lat, lng);
+
+                points.add(position);
             }
 
-// Drawing polyline in the Google Map for the i-th route
-            if (lineOptions != null)
-                mMap.addPolyline(lineOptions);
-            else
-                Toast.makeText(getActivity(), "No es posible trazar la ruta", Toast.LENGTH_SHORT).show();
+            lineOptions.addAll(points);
+            lineOptions.width(12);
+            lineOptions.color(Color.RED);
+            lineOptions.geodesic(true);
         }
+
+        if (lineOptions != null)
+            mMap.addPolyline(lineOptions);
+        else
+            Toast.makeText(getContext(), "No es posible trazar la ruta", Toast.LENGTH_SHORT).show();
     }
 
-    private String getDirectionsUrl(LatLng origin, LatLng dest) {
-
-        // Origin of route
-        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
-
-        // Destination of route
-        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
-
-        // Sensor enabled
-        String sensor = "sensor=false";
-        String mode = "mode=driving";
-
-        // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + mode;
-
-        // Output format
-        String output = "json";
-
-        // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-
-
-        return url;
-    }
-
-    private String downloadUrl(String strUrl) throws IOException {
-        String data = "";
-        InputStream iStream = null;
-        HttpURLConnection urlConnection = null;
-        try {
-            URL url = new URL(strUrl);
-
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            urlConnection.connect();
-
-            iStream = urlConnection.getInputStream();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-
-            StringBuffer sb = new StringBuffer();
-
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-
-            data = sb.toString();
-
-            br.close();
-
-        } catch (Exception e) {
-            Log.d("Exception", e.toString());
-        } finally {
-            iStream.close();
-            urlConnection.disconnect();
-        }
-        return data;
-    }
 }

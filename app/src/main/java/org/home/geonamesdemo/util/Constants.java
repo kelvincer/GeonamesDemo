@@ -26,25 +26,9 @@ public final class Constants {
     public static final String DEFAULT_GEONAME_ROW = "100";
     public static final String GEOGNOS_API = "http://www.geognos.com/api/en/countries/flag/%s.png";
     public static final String GEONAME_KEY = "Geoname";
+    public static String DIRECTIONS_KEY = "AIzaSyAMni--tCJGoCbW-RsdcfhWBDEEC0uOhDQ"; // Google Api directions
 
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
-    }
-
-    public static String getUserCountry(Context context) {
-        try {
-            final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            final String simCountry = tm.getSimCountryIso();
-            if (simCountry != null && simCountry.length() == 2) { // SIM country code is available
-                return simCountry.toLowerCase(Locale.US);
-            } else if (tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA) { // device is not 3G (would be unreliable)
-                String networkCountry = tm.getNetworkCountryIso();
-                if (networkCountry != null && networkCountry.length() == 2) { // network country code is available
-                    return networkCountry.toLowerCase(Locale.US);
-                }
-            }
-        } catch (Exception e) {
-        }
-        return null;
     }
 }
