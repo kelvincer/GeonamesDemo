@@ -128,7 +128,6 @@ public class RutaFragment extends Fragment implements OnMapReadyCallback, Update
         destino.setLng(this.destino.longitude);
 
         Call<DirectionsServiceResponse> call = service.buscarRuta(origen, destino, "driving", Constants.DIRECTIONS_KEY);
-
         call.enqueue(new Callback<DirectionsServiceResponse>() {
             @Override
             public void onResponse(Call<DirectionsServiceResponse> call, Response<DirectionsServiceResponse> response) {
@@ -157,7 +156,7 @@ public class RutaFragment extends Fragment implements OnMapReadyCallback, Update
 
     public List<List<HashMap<String, String>>> getRoutes(DirectionsServiceResponse jObject) {
 
-        List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String, String>>>();
+        List<List<HashMap<String, String>>> routes = new ArrayList<>();
         List<Leg> legs;
         List<Step> steps;
 
@@ -256,7 +255,6 @@ public class RutaFragment extends Fragment implements OnMapReadyCallback, Update
         if (lineOptions != null)
             mMap.addPolyline(lineOptions);
         else
-            Toast.makeText(getContext(), "No es posible trazar la ruta", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No es posible trazar la ruta", Toast.LENGTH_LONG).show();
     }
-
 }

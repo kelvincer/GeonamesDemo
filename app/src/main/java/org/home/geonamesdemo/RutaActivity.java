@@ -33,9 +33,6 @@ import java.util.List;
 public class RutaActivity extends AppCompatActivity implements LocationCallback {
 
     private static final String TAG = RutaActivity.class.getSimpleName();
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
     private Geoname geoname;
     private List<String> listaPermisos = new ArrayList<>();
     private int SOLICITUD_PERMISO = 100;
@@ -46,16 +43,16 @@ public class RutaActivity extends AppCompatActivity implements LocationCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruta);
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.direccion_ruta));
 
         geoname = (Geoname) getIntent().getSerializableExtra(Constants.GEONAME_KEY);
 
-        viewPager = findViewById(R.id.viewpager);
+        ViewPager viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -65,7 +62,7 @@ public class RutaActivity extends AppCompatActivity implements LocationCallback 
                 setUpLocationManager();
 
             } else {
-                solicitarPermiso(SOLICITUD_PERMISO, this);
+                solicitarPermiso(SOLICITUD_PERMISO);
             }
         } else {
             setUpLocationManager();
@@ -104,7 +101,7 @@ public class RutaActivity extends AppCompatActivity implements LocationCallback 
         obtenerPosicion();
     }
 
-    public void solicitarPermiso(int requestCode, Activity activity) {
+    public void solicitarPermiso(int requestCode) {
 
         ActivityCompat.requestPermissions(this, listaPermisos.toArray((new String[listaPermisos.size()])), requestCode);
     }
@@ -134,12 +131,9 @@ public class RutaActivity extends AppCompatActivity implements LocationCallback 
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.GEONAME_KEY, geoname);
         fragment.setArguments(bundle);
-        //adapter.addFragment(fragment, "RUTA");
 
         DireccionFragment fragment1 = new DireccionFragment();
         fragment1.setArguments(bundle);
-        //adapter.addFragment(fragment1, "DIRECCIÓN");
-
 
         adapter.addFragment(fragment1, "DIRECCIÓN");
         adapter.addFragment(fragment, "RUTA");
@@ -149,8 +143,6 @@ public class RutaActivity extends AppCompatActivity implements LocationCallback 
 
     @Override
     public void onLocationChanged(Location location) {
-
-        Log.d(TAG, "location 2 " + location.toString());
         adapter.update(location);
     }
 }

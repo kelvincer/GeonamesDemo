@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.home.geonamesdemo.model.Geoname;
 import org.home.geonamesdemo.util.Constants;
+import org.home.geonamesdemo.view.WorkaroundMapFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,13 +63,23 @@ public class DetalleLugarActivity extends AppCompatActivity implements OnMapRead
         ButterKnife.bind(this);
 
         setTitle(getString(R.string.detalle_lugar));
-        SupportMapFragment mapFragment = (SupportMapFragment)
+        WorkaroundMapFragment mapFragment = (WorkaroundMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.mapa);
         mapFragment.getMapAsync(this);
 
         geoname = (Geoname) getIntent().getSerializableExtra(Constants.GEONAME_KEY);
 
         cargarDatos();
+
+        final ScrollView mScrollView = (ScrollView) findViewById(R.id.scroll_view); //parent scrollview in xml, give your scrollview id value
+
+        ((WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapa))
+                .setListener(new WorkaroundMapFragment.OnTouchListener() {
+                    @Override
+                    public void onTouch() {
+                        mScrollView.requestDisallowInterceptTouchEvent(true);
+                    }
+                });
     }
 
     private void cargarDatos() {

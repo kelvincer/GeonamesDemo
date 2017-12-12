@@ -2,17 +2,20 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_below="@id/mapa">
 
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".DetalleLugarActivity">
 
         <fragment
             android:id="@+id/mapa"
-            class="com.google.android.gms.maps.SupportMapFragment"
+            class="org.home.geonamesdemo.view.WorkaroundMapFragment"
             android:layout_width="match_parent"
             android:layout_height="250dp" />
 
@@ -293,7 +296,8 @@
             </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
+        }
+
 
     </RelativeLayout>
-
 </ScrollView>

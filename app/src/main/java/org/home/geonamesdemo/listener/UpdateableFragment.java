@@ -8,5 +8,4 @@ import android.location.Location;
 
 public interface UpdateableFragment {
     public void update(Location xyzData);
-
 }
