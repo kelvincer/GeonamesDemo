@@ -14,260 +14,61 @@
     </string-array>
 
     <string-array name="nombres_paises">
-        <item>Afganistán</item>
-        <item>Åland</item>
-        <item>Albania</item>
         <item>Alemania</item>
-        <item>Andorra</item>
-        <item>Angola</item>
-        <item>Anguila</item>
-        <item>Antártida</item>
-        <item>Antigua y Barbuda</item>
-        <item>Antillas Neerlandesas</item>
-        <item>Arabia Saudita</item>
-        <item>Argelia</item>
         <item>Argentina</item>
-        <item>Armenia</item>
-        <item>Aruba</item>
         <item>Australia</item>
         <item>Austria</item>
-        <item>Azerbaiyán</item>
-        <item>Bahamas</item>
-        <item>Bahréin</item>
-        <item>Bangladesh</item>
-        <item>Barbados</item>
-        <item>Bielorrusia</item>
         <item>Bélgica</item>
-        <item>Belice</item>
-        <item>Benín</item>
-        <item>Bermudas</item>
-        <item>Bután</item>
         <item>Bolivia</item>
-        <item>Bosnia y Herzegovina</item>
-        <item>Botsuana</item>
-        <item>Isla Bouvet</item>
         <item>Brasil</item>
-        <item>Brunéi</item>
-        <item>Bulgaria</item>
-        <item>Burkina Faso</item>
-        <item>Burundi</item>
-        <item>Cabo Verde</item>
-        <item>Islas Caimán</item>
-        <item>Camboya</item>
-        <item>Camerún</item>
         <item>Canadá</item>
-        <item>República Centroafricana</item>
-        <item>Chad</item>
-        <item>República Checa</item>
         <item>Chile</item>
-        <item>China</item>
-        <item>Chipre</item>
-        <item>Islas Cocos</item>
         <item>Colombia</item>
-        <item>Comoras</item>
-        <item>República del Congo</item>
-        <item>República Democrática del Congo</item>
-        <item>Islas Cook</item>
-        <item>Corea del Norte</item>
-        <item>Corea del Sur</item>
-        <item>Costa de Marfil</item>
-        <item>Costa Rica</item>
-        <item>Croacia</item>
         <item>Cuba</item>
-        <item>Dinamarca</item>
-        <item>Dominica</item>
-        <item>República Dominicana</item>
-        <item>Ecuador</item>
-        <item>Egipto</item>
-        <item>El Salvador</item>
-        <item>Emiratos Árabes Unidos</item>
-        <item>Eritrea</item>
-        <item>Eslovaquia</item>
-        <item>Eslovenia</item>
         <item>España</item>
-        <item>España (Ceuta y Melilla)</item>
         <item>Estados Unidos</item>
-        <item>Islas ultramarinas de Estados Unidos</item>
-        <item>Estonia</item>
-        <item>Etiopía</item>
-        <item>Islas Feroe</item>
-        <item>Filipinas</item>
-        <item>Finlandia</item>
-        <item>Fiyi</item>
         <item>Francia</item>
-        <item>Gabón</item>
-        <item>Gambia</item>
-        <item>Georgia</item>
-        <item>Islas Georgias del Sur y Sandwich del Sur</item>
-        <item>Ghana</item>
-        <item>Gibraltar</item>
-        <item>Granada</item>
         <item>Grecia</item>
-        <item>Groenlandia</item>
-        <item>Guadalupe</item>
-        <item>Guam</item>
-        <item>Guatemala</item>
-        <item>Guayana Francesa</item>
-        <item>Guernsey</item>
-        <item>Guinea</item>
-        <item>Guinea Ecuatorial</item>
-        <item>Guinea-Bissau</item>
-        <item>Guyana</item>
-        <item>Haití</item>
-        <item>Islas Heard y McDonald</item>
-        <item>Honduras</item>
-        <item>Hong Kong</item>
-        <item>Hungría</item>
-        <item>India</item>
-        <item>Indonesia</item>
-        <item>Irán</item>
-        <item>Iraq</item>
-        <item>Irlanda</item>
         <item>Islandia</item>
-        <item>Israel</item>
         <item>Italia</item>
-        <item>Jamaica</item>
-        <item>Japón</item>
-        <item>Jersey</item>
-        <item>Jordania</item>
-        <item>Kazajistán</item>
-        <item>Kenia</item>
-        <item>Kirguistán</item>
-        <item>Kiribati</item>
-        <item>Kuwait</item>
-        <item>Laos</item>
-        <item>Lesoto</item>
-        <item>Letonia</item>
-        <item>Líbano</item>
-        <item>Liberia</item>
-        <item>Libia</item>
-        <item>Liechtenstein</item>
-        <item>Lituania</item>
-        <item>Luxemburgo</item>
-        <item>Macao</item>
-        <item>ARY Macedonia</item>
-        <item>Madagascar</item>
-        <item>Malasia</item>
-        <item>Malawi</item>
-        <item>Maldivas</item>
-        <item>Malí</item>
-        <item>Malta</item>
-        <item>Islas Malvinas</item>
-        <item>Isla de Man</item>
-        <item>Islas Marianas del Norte</item>
-        <item>Marruecos</item>
-        <item>Islas Marshall</item>
-        <item>Martinica</item>
-        <item>Mauricio</item>
-        <item>Mauritania</item>
-        <item>Mayotte</item>
         <item>México</item>
-        <item>Micronesia</item>
-        <item>Moldavia</item>
-        <item>Mónaco</item>
-        <item>Mongolia</item>
-        <item>Montenegro</item>
-        <item>Montserrat</item>
-        <item>Mozambique</item>
-        <item>Myanmar</item>
-        <item>Namibia</item>
-        <item>Nauru</item>
-        <item>Isla de Navidad</item>
-        <item>Nepal</item>
-        <item>Nicaragua</item>
-        <item>Níger</item>
-        <item>Nigeria</item>
-        <item>Niue</item>
-        <item>Norfolk</item>
         <item>Noruega</item>
-        <item>Nueva Caledonia</item>
-        <item>Nueva Zelanda</item>
-        <item>Omán</item>
         <item>Países Bajos</item>
-        <item>Pakistán</item>
-        <item>Palaos</item>
-        <item>Palestina (ANP)</item>
-        <item>Panamá</item>
-        <item>Papúa Nueva Guinea</item>
-        <item>Paraguay</item>
         <item>Perú</item>
-        <item>Islas Pitcairn</item>
-        <item>Polinesia Francesa</item>
-        <item>Polonia</item>
         <item>Portugal</item>
-        <item>Puerto Rico</item>
-        <item>Qatar</item>
         <item>Reino Unido</item>
-        <item>Reunión</item>
-        <item>Ruanda</item>
-        <item>Rumania</item>
-        <item>Rusia</item>
-        <item>Sahara Occidental</item>
-        <item>Islas Salomón</item>
-        <item>Samoa</item>
-        <item>Samoa Americana</item>
-        <item>San Cristóbal y Nieves</item>
-        <item>San Marino</item>
-        <item>San Pedro y Miquelón</item>
-        <item>San Vicente y las Granadinas</item>
-        <item>Santa Helena</item>
-        <item>Santa Lucía</item>
-        <item>Santo Tomé y Príncipe</item>
-        <item>Senegal</item>
-        <item>Serbia</item>
-        <item>Seychelles</item>
-        <item>Sierra Leona</item>
-        <item>Singapur</item>
-        <item>Siria</item>
-        <item>Somalia</item>
-        <item>Sri Lanka</item>
-        <item>Suazilandia</item>
-        <item>Sudáfrica</item>
-        <item>Sudán</item>
-        <item>Suecia</item>
-        <item>Suiza</item>
-        <item>Surinam</item>
-        <item>Svalbard y Jan Mayen</item>
-        <item>Tailandia</item>
-        <item>Taiwán</item>
-        <item>Tanzania</item>
-        <item>Tayikistán</item>
-        <item>Territorio Británico del Océano Índico</item>
-        <item>Territorios Australes Franceses</item>
-        <item>Timor Oriental</item>
-        <item>Togo</item>
-        <item>Tokelau</item>
-        <item>Tonga</item>
-        <item>Trinidad y Tobago</item>
-        <item>Túnez</item>
-        <item>Islas Turcas y Caicos</item>
-        <item>Turkmenistán</item>
-        <item>Turquía</item>
-        <item>Tuvalu</item>
-        <item>Ucrania</item>
-        <item>Uganda</item>
-        <item>Uruguay</item>
-        <item>Uzbekistán</item>
-        <item>Vanuatu</item>
-        <item>Ciudad del Vaticano</item>
-        <item>Venezuela</item>
-        <item>Vietnam</item>
-        <item>Islas Vírgenes Británicas</item>
-        <item>Islas Vírgenes Estadounidenses</item>
-        <item>Wallis y Futuna</item>
-        <item>Yemen</item>
-        <item>Yibuti</item>
-        <item>Zambia</item>
         <item>Zimbabue</item>
     </string-array>
 
-    <string-array name="codigo_paises">
-
-        <item>AF</item>
-        <item>AX</item>
-        <item>AL</item>
+    <string-array name="code_country">
         <item>DE</item>
-        <item>AD</item>
+        <item>AR</item>
+        <item>AU</item>
+        <item>AT</item>
+        <item>BE</item>
+        <item>BO</item>
+        <item>BR</item>
+        <item>CA</item>
+        <item>CL</item>
+        <item>CO</item>
+        <item>CU</item>
+        <item>ES</item>
+        <item>US</item>
+        <item>FR</item>
+        <item>GR</item>
+        <item>IS</item>
+        <item>IT</item>
+        <item>MX</item>
+        <item>NO</item>
+        <item>NL</item>
+        <item>PE</item>
+        <item>PT</item>
+        <item>GB</item>
+        <item>ZW</item>
+    </string-array>
+
+    <string-array name="codigo_paises">
+        <item>DE</item>
         <item>AO</item>
         <item>AI</item>
         <item>AQ</item>

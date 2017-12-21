@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:layout_below="@id/mapa">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".DetalleLugarActivity">
@@ -33,11 +32,11 @@
 
                 <TextView
                     android:id="@+id/nombre_lugar"
-                    android:layout_width="120dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical|start"
-                    android:lines="3"
+                    android:lines="5"
                     android:textSize="16sp"
                     tools:text="Provincia de Santiago Rodriguez" />
 

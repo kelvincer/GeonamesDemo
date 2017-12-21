@@ -71,7 +71,7 @@ public class DetalleLugarActivity extends AppCompatActivity implements OnMapRead
 
         cargarDatos();
 
-        final ScrollView mScrollView = (ScrollView) findViewById(R.id.scroll_view); //parent scrollview in xml, give your scrollview id value
+        final ScrollView mScrollView = findViewById(R.id.scroll_view); //parent scrollview in xml, give your scrollview id value
 
         ((WorkaroundMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapa))
                 .setListener(new WorkaroundMapFragment.OnTouchListener() {

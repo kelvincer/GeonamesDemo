@@ -8,7 +8,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
         tools:context="org.home.geonamesdemo.BuscarLugaresPorLatLngActivity"
         tools:showIn="@layout/activity_lugares_cercanos">
@@ -117,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@drawable/background_button"
             android:text="@string/buscar"
             app:layout_constraintTop_toBottomOf="@id/rtl_multi_uno" />
 
@@ -233,6 +235,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/background_button"
             android:text="@string/buscar_cerca_a_mi"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

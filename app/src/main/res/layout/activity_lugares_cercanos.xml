@@ -14,6 +14,6 @@
         android:visibility="invisible"
         tools:visibility="visible" />
 
-    <include layout="@layout/content_cercanos" />
+    <include layout="@layout/content_busqueda" />
 
 </android.support.design.widget.CoordinatorLayout>

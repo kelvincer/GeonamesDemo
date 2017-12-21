@@ -93,7 +93,7 @@ public class BuscarLugarPorNombreActivity extends AppCompatActivity implements M
     public void onItemsSelected(boolean[] selected) {
 
         codigos.clear();
-        String[] stringsCodigos = getResources().getStringArray(R.array.codigo_paises);
+        String[] stringsCodigos = getResources().getStringArray(R.array.code_country);
 
         for (int i = 1; i < selected.length; i++) {
             if (selected[i]) {
